@@ -8,6 +8,7 @@
  */
 package org.bleachhack.mixin;
 
+import net.minecraft.client.gui.DrawContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,7 +42,7 @@ public abstract class MixinBeaconScreen extends HandledScreen<BeaconScreenHandle
 	}
 
 	@Inject(method = "render", at = @At("HEAD"))
-	private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo callback) {
+	private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		if (unlocked) {
 			for (Drawable b: ((AccessorScreen) this).getDrawables()) {
 				if (b instanceof ClickableWidget) {
