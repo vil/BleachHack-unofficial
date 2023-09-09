@@ -79,8 +79,6 @@ accessible    field    net/minecraft/client/font/TextRenderer    fontStorageAcce
 # - For AutoReconnect to read the various fields of DisconnectedScreen
 accessible    field    net/minecraft/client/gui/screen/DisconnectedScreen    parent    Lnet/minecraft/client/gui/screen/Screen;
 accessible    field    net/minecraft/client/gui/screen/DisconnectedScreen    reason    Lnet/minecraft/text/Text;
-accessible    field    net/minecraft/client/gui/screen/DisconnectedScreen    reasonHeight    I
-
 
 # HandledScreen
 # - For Peek to get the focused slot

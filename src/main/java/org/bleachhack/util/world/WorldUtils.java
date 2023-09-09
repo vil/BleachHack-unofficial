@@ -150,7 +150,7 @@ public class WorldUtils {
 
 			Block neighborBlock = mc.world.getBlockState(pos.offset(d)).getBlock();
 
-			if (!airPlace && neighborBlock.getDefaultState().getMaterial().isReplaceable())
+			if (!airPlace && neighborBlock.getDefaultState().isReplaceable())
 				continue;
 
 			Vec3d vec = getLegitLookPos(pos.offset(d), d.getOpposite(), true, 5);
@@ -240,7 +240,7 @@ public class WorldUtils {
 	}
 
 	public static boolean isBlockEmpty(BlockPos pos) {
-		if (!mc.world.getBlockState(pos).getMaterial().isReplaceable()) {
+		if (!mc.world.getBlockState(pos).isReplaceable()) {
 			return false;
 		}
 

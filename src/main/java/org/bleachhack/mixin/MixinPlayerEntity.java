@@ -83,7 +83,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 					breakingSpeed /= 5.0F;
 				}
 
-				if (!this.onGround) {
+				if (!this.isOnGround()) {
 					breakingSpeed /= 5.0F;
 				}
 			}

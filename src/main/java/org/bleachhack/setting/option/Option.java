@@ -2,6 +2,7 @@ package org.bleachhack.setting.option;
 
 import java.util.stream.Stream;
 
+import net.minecraft.client.gui.DrawContext;
 import org.apache.logging.log4j.core.util.ReflectionUtil;
 import org.bleachhack.gui.window.widget.WindowWidget;
 import org.bleachhack.setting.Setting;

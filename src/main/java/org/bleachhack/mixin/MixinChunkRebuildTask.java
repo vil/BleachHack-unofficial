@@ -15,6 +15,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.mojang.blaze3d.systems.VertexSorter;
 import it.unimi.dsi.fastutil.objects.ReferenceArraySet;
 import org.bleachhack.BleachHack;
 import org.bleachhack.event.events.EventRenderBlock;
@@ -142,7 +143,7 @@ public class MixinChunkRebuildTask {
 			if (set.contains(RenderLayer.getTranslucent())) {
 				BufferBuilder bufferBuilder2 = buffers.get(RenderLayer.getTranslucent());
 				if (!bufferBuilder2.isBatchEmpty()) {
-					bufferBuilder2.sortFrom(cameraX - (float)blockPos.getX(), cameraY - (float)blockPos.getY(), cameraZ - (float)blockPos.getZ());
+					bufferBuilder2.setSorter(VertexSorter.byDistance(cameraX - (float)blockPos.getX(), cameraY - (float)blockPos.getY(), cameraZ - (float)blockPos.getZ()));
 					renderData.translucencySortingData = bufferBuilder2.getSortingData();
 				}
 			}
@@ -153,7 +154,7 @@ public class MixinChunkRebuildTask {
 				RenderLayer renderLayer2 = (RenderLayer)var15.next();
 				BufferBuilder.BuiltBuffer builtBuffer = buffers.get(renderLayer2).endNullable();
 				if (builtBuffer != null) {
-					renderData.field_39081.put(renderLayer2, builtBuffer);
+					renderData.buffers.put(renderLayer2, builtBuffer);
 				}
 			}
 

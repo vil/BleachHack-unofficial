@@ -11,6 +11,9 @@ package org.bleachhack.module.mods;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.text.OrderedText;
 import org.bleachhack.event.events.EventRenderTooltip;
 import org.bleachhack.eventbus.BleachSubscribe;
 import org.bleachhack.module.Module;
@@ -29,7 +32,6 @@ import net.minecraft.block.ChestBlock;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.ShulkerBoxBlock;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.ingame.BookScreen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -90,27 +92,28 @@ public class Peek extends Module {
 			slotY = slot.y;
 		}
 
-		event.getMatrix().push();
-		event.getMatrix().translate(0, 0, 400);
+		event.getContext().getMatrices().push();
+		event.getContext().getMatrices().translate(0, 0, 400);
 
+		/**
 		if (getSetting(0).asToggle().getState()) {
-			List<TooltipComponent> components = drawShulkerToolTip(event.getMatrix(), slot, event.getMouseX(), event.getMouseY());
+			List<TooltipComponent> components = drawShulkerToolTip(event.getContext(), slot, event.getMouseX(), event.getMouseY());
 			if (components != null) {
 				if (components.isEmpty()) {
 					event.setCancelled(true);
 				} else {
-					event.setComponents(components);
+					event.getContext();
 				}
 			}
-		}
+		}**/
 
-		if (getSetting(1).asToggle().getState()) drawBookToolTip(event.getMatrix(), slot, event.getMouseX(), event.getMouseY());
-		if (getSetting(2).asToggle().getState()) drawMapToolTip(event.getMatrix(), slot, event.getMouseX(), event.getMouseY());
+		if (getSetting(1).asToggle().getState()) drawBookToolTip(event.getContext(), slot, event.getMouseX(), event.getMouseY());
+		if (getSetting(2).asToggle().getState()) drawMapToolTip(event.getContext().getMatrices(), slot, event.getMouseX(), event.getMouseY());
 
-		event.getMatrix().pop();
+		event.getContext().getMatrices().pop();
 	}
 
-	public List<TooltipComponent> drawShulkerToolTip(MatrixStack matrices, Slot slot, int mouseX, int mouseY) {
+	public List<TooltipComponent> drawShulkerToolTip(DrawContext context, Slot slot, int mouseX, int mouseY) {
 		if (!(slot.getStack().getItem() instanceof BlockItem)) {
 			return null;
 		}
@@ -137,7 +140,7 @@ public class Peek extends Module {
 		int tooltipWidth = block instanceof AbstractFurnaceBlock ? 47 : block instanceof HopperBlock ? 82 : 150;
 		int tooltipHeight = block instanceof AbstractFurnaceBlock || block instanceof HopperBlock || block instanceof DispenserBlock ? 13 : 47;
 
-		renderTooltipBox(matrices, mouseX, realY - tooltipHeight - 7, tooltipWidth, tooltipHeight, true);
+		renderTooltipBox(context.getMatrices(), mouseX, realY - tooltipHeight - 7, tooltipWidth, tooltipHeight, true);
 
 		int count = block instanceof HopperBlock || block instanceof DispenserBlock || block instanceof AbstractFurnaceBlock ? 18 : 0;
 
@@ -150,8 +153,8 @@ public class Peek extends Module {
 			int y = realY - 67 + 17 * (count / 9);
 
 			// mc.getItemRenderer().zOffset = 400;
-			mc.getItemRenderer().renderInGuiWithOverrides(matrices, i, x, y);
-			mc.getItemRenderer().renderGuiItemOverlay(matrices, mc.textRenderer, i, x, y, null);
+			context.drawItem(i, x, y);
+			context.drawItemTooltip(mc.textRenderer, i, x, y);
 			// mc.getItemRenderer().zOffset = 300;
 			count++;
 		}
@@ -165,7 +168,7 @@ public class Peek extends Module {
 		return null;
 	}
 
-	public void drawBookToolTip(MatrixStack matrices, Slot slot, int mouseX, int mouseY) {
+	public void drawBookToolTip(DrawContext context, Slot slot, int mouseX, int mouseY) {
 		if (slot.getStack().getItem() != Items.WRITABLE_BOOK && slot.getStack().getItem() != Items.WRITTEN_BOOK)
 			return;
 
@@ -192,8 +195,7 @@ public class Peek extends Module {
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, BookScreen.BOOK_TEXTURE);
-		DrawableHelper.drawTexture(
-				matrices,
+		context.drawTexture(Identifier.of("minecraft", "textures/gui/book.png"),
 				mouseX, mouseY - 143, 0,
 				0, 0,
 				134, 134,
@@ -202,30 +204,29 @@ public class Peek extends Module {
 		Text pageIndexText = Text.translatable("book.pageIndicator", pageCount + 1, pages.size());
 		int pageIndexLength = mc.textRenderer.getWidth(pageIndexText);
 
-		matrices.push();
-		matrices.scale(0.7f, 0.7f, 1f);
+		context.getMatrices().push();
+		context.getMatrices().scale(0.7f, 0.7f, 1f);
 
-		mc.textRenderer.draw(
-				matrices,
-				pageIndexText,
-				(mouseX + 123 - pageIndexLength) * 1.43f,
-				(mouseY - 133) * 1.43f,
-				0x000000);
+		context.drawText(MinecraftClient.getInstance().textRenderer,
+                (OrderedText) pageIndexText,
+                (int) ((mouseX + 123 - pageIndexLength) * 1.43f),
+                (int) ((mouseY - 133) * 1.43f),
+				0x000000, false);
 
 
 		int count = 0;
 		for (String s : pages.get(pageCount)) {
-			mc.textRenderer.draw(
-					matrices,
+			context.drawText(
+					MinecraftClient.getInstance().textRenderer,
 					s,
-					(mouseX + 24) * 1.43f,
-					(mouseY - 123 + count * 7) * 1.43f,
-					0x000000);
+                    (int) ((mouseX + 24) * 1.43f),
+                    (int) ((mouseY - 123 + count * 7) * 1.43f),
+					0x000000, false);
 
 			count++;
 		}
 
-		matrices.pop();
+		context.getMatrices().pop();
 
 	}
 

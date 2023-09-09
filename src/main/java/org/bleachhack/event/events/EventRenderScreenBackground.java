@@ -8,19 +8,20 @@
  */
 package org.bleachhack.event.events;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.event.Event;
 
 import net.minecraft.client.util.math.MatrixStack;
 
 public class EventRenderScreenBackground extends Event {
 	
-	private MatrixStack matrices;
+	private DrawContext context	;
 
-	public EventRenderScreenBackground(MatrixStack matrices) {
-		this.matrices = matrices;
+	public EventRenderScreenBackground(DrawContext context) {
+		this.context = context;
 	}
 
-	public MatrixStack getMatrices() {
-		return matrices;
+	public DrawContext getContext() {
+		return context;
 	}
 }

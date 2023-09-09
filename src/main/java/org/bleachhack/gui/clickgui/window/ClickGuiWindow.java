@@ -8,13 +8,12 @@
  */
 package org.bleachhack.gui.clickgui.window;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.window.Window;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
 
@@ -41,25 +40,27 @@ public abstract class ClickGuiWindow extends Window {
 		return false;
 	}
 
-	protected void drawBackground(MatrixStack matrices, int mouseX, int mouseY, TextRenderer textRend) {
+	protected void drawBackground(DrawContext context, int mouseX, int mouseY, TextRenderer textRend) {
 		/* background */
-		DrawableHelper.fill(matrices, x1, y1 + 1, x1 + 1, y2 - 1, 0xff6060b0);
-		horizontalGradient(matrices, x1 + 1, y1, x2 - 1, y1 + 1, 0xff6060b0, 0xff8070b0);
-		DrawableHelper.fill(matrices, x2 - 1, y1 + 1, x2, y2 - 1, 0xff8070b0);
-		horizontalGradient(matrices, x1 + 1, y2 - 1, x2 - 1, y2, 0xff6060b0, 0xff8070b0);
+		context.fill(x1, y1 + 1, x1 + 1, y2 - 1, 0xff6060b0);
+		horizontalGradient(context, + 1, y1, x2 - 1, y1 + 1, 0xff6060b0, 0xff8070b0);
+		context.fill(x2 - 1, y1 + 1, x2, y2 - 1, 0xff8070b0);
+		horizontalGradient(context, x1 + 1, y2 - 1, x2 - 1, y2, 0xff6060b0, 0xff8070b0);
 
-		DrawableHelper.fill(matrices, x1 + 1, y1 + 12, x2 - 1, y2 - 1, 0x90606090);
+		context.fill(x1 + 1, y1 + 12, x2 - 1, y2 - 1, 0x90606090);
 
 		/* title bar */
-		horizontalGradient(matrices, x1 + 1, y1 + 1, x2 - 1, y1 + 12, 0xff6060b0, 0xff8070b0);
+		horizontalGradient(context, x1 + 1, y1 + 1, x2 - 1, y1 + 12, 0xff6060b0, 0xff8070b0);
 
 		/* +/- text */
-		textRend.draw(matrices, hiding ? "+" : "_", x2 - 10, y1 + (hiding ? 4 : 2), 0x000000);
-		textRend.draw(matrices, hiding ? "+" : "_", x2 - 11, y1 + (hiding ? 3 : 1), 0xffffff);
+		context.drawText(MinecraftClient.getInstance().textRenderer,
+				hiding ? "+" : "_", x2 - 10, y1 + (hiding ? 4 : 2), 0x000000, false);
+		context.drawText(MinecraftClient.getInstance().textRenderer,
+				hiding ? "+" : "_", x2 - 11, y1 + (hiding ? 3 : 1), 0xffffff, false);
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY) {
-		super.render(matrices, mouseX, mouseY);
+	public void render(DrawContext context, int mouseX, int mouseY) {
+		super.render(context, mouseX, mouseY);
 
 		if (rmDown && mouseOver(x1, y1, x1 + (x2 - x1), y1 + 13)) {
 			mc.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));

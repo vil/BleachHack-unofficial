@@ -1,5 +1,6 @@
 package org.bleachhack.gui.window.widget;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.window.Window;
 
 import net.minecraft.client.MinecraftClient;
@@ -26,8 +27,8 @@ public class WindowCheckboxWidget extends WindowWidget {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int windowX, int windowY, int mouseX, int mouseY) {
-		super.render(matrices, windowX, windowY, mouseX, mouseY);
+	public void render(DrawContext context, int windowX, int windowY, int mouseX, int mouseY) {
+		super.render(context, windowX, windowY, mouseX, mouseY);
 
 		TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
@@ -35,14 +36,14 @@ public class WindowCheckboxWidget extends WindowWidget {
 		int y = windowY + y1;
 		int color = mouseX >= x && mouseX <= x + 10 && mouseY >= y && mouseY <= y + 10 ? 0x906060ff : 0x9040409f;
 
-		Window.fill(matrices, x, y, x + 11, y + 11, color);
+		Window.fill(context, x, y, x + 11, y + 11, color);
 
 		if (checked) {
-			textRenderer.draw(matrices, "\u2714", x + 2, y + 2, 0xffeeff);
+			context.drawText(textRenderer, "\u2714", x + 2, y + 2, 0xffeeff, false);
 			//fill(matrix, x + 3, y + 3, x + 7, y + 7, 0xffffffff);
 		}
 
-		textRenderer.drawWithShadow(matrices, text, x + 15, y + 2, 0xc0c0c0);
+		context.drawTextWithShadow(textRenderer, text, x + 15, y + 2, 0xc0c0c0);
 	}
 
 	@Override

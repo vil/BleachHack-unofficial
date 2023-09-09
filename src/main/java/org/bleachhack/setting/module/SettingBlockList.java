@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.registry.Registries;
 import org.bleachhack.setting.SettingDataHandlers;
 
@@ -41,9 +42,9 @@ public class SettingBlockList extends SettingList<Block> {
 	}
 
 	@Override
-	public void renderItem(MinecraftClient mc, MatrixStack matrices, Block item, int x, int y, int w, int h) {
+	public void renderItem(MinecraftClient mc, DrawContext context, Block item, int x, int y, int w, int h) {
 		if (item == null || item.asItem() == Items.AIR) {
-			super.renderItem(mc, matrices, item, x, y, w, h);
+			super.renderItem(mc, context, item, x, y, w, h);
 		} else {
 			RenderSystem.getModelViewStack().push();
 
@@ -52,7 +53,7 @@ public class SettingBlockList extends SettingList<Block> {
 
 			RenderSystem.getModelViewStack().scale(scale, scale, 1f);
 
-			mc.getItemRenderer().renderInGuiWithOverrides(matrices, new ItemStack(item.asItem()), (int) ((x + 1) * offset), (int) ((y + 1) * offset));
+			context.drawItem(new ItemStack(item.asItem()), (int) ((x + 1) * offset), (int) ((y + 1) * offset));
 
 			RenderSystem.getModelViewStack().pop();
 			RenderSystem.applyModelViewMatrix();

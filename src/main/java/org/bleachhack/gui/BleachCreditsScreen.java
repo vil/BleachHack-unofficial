@@ -10,6 +10,7 @@ package org.bleachhack.gui;
 
 import java.net.http.HttpResponse.BodyHandlers;
 
+import net.minecraft.client.gui.DrawContext;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.bleachhack.BleachHack;
 import org.bleachhack.gui.window.Window;
@@ -129,8 +130,8 @@ public class BleachCreditsScreen extends WindowScreen {
 						Text.literal(pair.getRight()).styled(s1 -> s1.withColor(color)))));
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		this.renderBackground(context);
 		
 		if (!boostersLoaded && boosterList != null) {
 			int scroll = scrollbar.getPageOffset();
@@ -146,7 +147,7 @@ public class BleachCreditsScreen extends WindowScreen {
 			}
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(context, mouseX, mouseY, delta);
 	}
 
 	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {

@@ -10,6 +10,7 @@ package org.bleachhack.gui.clickgui;
 
 import java.util.List;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.clickgui.window.ModuleWindow;
 import org.bleachhack.gui.clickgui.window.UIContainer;
 import org.bleachhack.gui.clickgui.window.UIWindow;
@@ -48,7 +49,7 @@ public class UIClickGuiScreen extends ClickGuiScreen {
 				200, 200, 75, "Render", new ItemStack(Items.YELLOW_STAINED_GLASS)));
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
 		BleachFileHelper.SCHEDULE_SAVE_UI.set(true);
 
 		uiContainer.updatePositions(width, height);
@@ -61,7 +62,7 @@ public class UIClickGuiScreen extends ClickGuiScreen {
 			w.closed = shouldClose;
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(context, mouseX, mouseY, delta);
 	}
 
 	public UIContainer getUIContainer() {

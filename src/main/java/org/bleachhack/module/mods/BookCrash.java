@@ -82,8 +82,8 @@ public class BookCrash extends Module {
 			String text = "bh ontop";
 			Random rand = new Random();
 			for (int i = 0; i < getSetting(1).asSlider().getValue(); i++) {
-				mc.player.networkHandler.sendPacket(new UpdateSignC2SPacket(
-						new BlockPos(rand.nextInt(29999999), rand.nextInt(29999999), rand.nextInt(29999999)), text, text, text, text));
+				mc.player.networkHandler.sendPacket(new UpdateSignC2SPacket(new BlockPos(rand.nextInt(29999999),
+                        rand.nextInt(29999999), rand.nextInt(29999999)), true, text, text, text, text));
 			}
 		} else {
 			for (int i = 0; i < pages; i++) {

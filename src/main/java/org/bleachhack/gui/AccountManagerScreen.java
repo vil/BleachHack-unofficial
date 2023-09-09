@@ -17,7 +17,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.Session;
@@ -140,20 +140,23 @@ public class AccountManagerScreen extends WindowScreen {
 				() -> openAddAccWindow(AccountType.MICROSOFT, "Microsoft", new ItemStack(Items.PURPLE_GLAZED_TERRACOTTA))));
 	}
 
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		this.renderBackground(context);
 
-		textRenderer.drawWithShadow(matrices, "Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
 				4, height - 30, -1);
-		textRenderer.drawWithShadow(matrices, "Minecraft: " + SharedConstants.getGameVersion().getName(), 4, height - 20, -1);
-		textRenderer.drawWithShadow(matrices, "Logged in as: \u00a7a" + client.getSession().getUsername(), 4, height - 10, -1);
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Minecraft: " + SharedConstants.getGameVersion().getName(), 4, height - 20, -1);
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Logged in as: \u00a7a" + client.getSession().getUsername(), 4, height - 10, -1);
 
 		hovered = -1;
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(context, mouseX, mouseY, delta);
 	}
 
-	public void onRenderWindow(MatrixStack matrices, int window, int mouseX, int mouseY) {
-		super.onRenderWindow(matrices, window, mouseX, mouseY);
+	public void onRenderWindow(DrawContext context, int window, int mouseX, int mouseY) {
+		super.onRenderWindow(context, window, mouseX, mouseY);
 
 		if (window == 0) {
 			int x = getWindow(0).x1;
@@ -170,27 +173,26 @@ public class AccountManagerScreen extends WindowScreen {
 					continue;
 
 				boolean hover = getWindow(0).selected && mouseX >= x + 1 && mouseX <= x + listW - (shrink ? 12 : 1) && mouseY >= curY && mouseY <= curY + 27;
-				drawEntry(matrices, accounts.get(c), x + 2, curY + 1, listW - (shrink ? 13 : 3), 26,
+				drawEntry(context, accounts.get(c), x + 2, curY + 1, listW - (shrink ? 13 : 3), 26,
 						selected == c ? 0x6090e090 : hover ? 0x60b070f0 : 0x60606090);
 
 				if (hover)
 					hovered = c;
 			}
 
-			fill(matrices, x + listW, y + 12, x + listW + 1, y + h - 1, 0xff606090);
+			context.fill(x + listW, y + 12, x + listW + 1, y + h - 1, 0xff606090);
 		}
 	}
 
-	private void drawEntry(MatrixStack matrices, Account acc, int x, int y, int width, int height, int color) {
-		Window.fill(matrices, x, y, x + width, y + height, color);
+	private void drawEntry(DrawContext context, Account acc, int x, int y, int width, int height, int color) {
+		Window.fill(context, x, y, x + width, y + height, color);
 
 		if (acc.bindSkin()) {
 			double pixelSize = (height - 6) / 8d;
-			DrawableHelper.fill(matrices,
-					x + 2, y + 2,
+			context.fill(x + 2, y + 2,
 					x + height - 2, y + height - 2,
 					0x60d86ceb);
-			DrawableHelper.drawTexture(matrices,
+			context.drawTexture(OPTIONS_BACKGROUND_TEXTURE,
 					x + 3, y + 3,
 					(int) (pixelSize * 8), (int) (pixelSize * 8),
 					(int) (pixelSize * 8), (int) (pixelSize * 8),
@@ -200,11 +202,10 @@ public class AccountManagerScreen extends WindowScreen {
 		boolean extendText = acc.bindCape();
 		if (extendText) {
 			double pixelSize = ((height - 6) / 10d) * 0.625;
-			DrawableHelper.fill(matrices,
-					x + height - 1, y + 2,
+			context.fill(x + height - 1, y + 2,
 					(int) (x + height + pixelSize * 10 + 1), y + height - 2,
 					0x60d86ceb);
-			DrawableHelper.drawTexture(matrices,
+			context.drawTexture(OPTIONS_BACKGROUND_TEXTURE,
 					x + height, y + 3,
 					(int) Math.ceil(pixelSize), (int) Math.ceil(pixelSize),
 					(int) (pixelSize * 10), (int) (pixelSize * 16),
@@ -212,14 +213,14 @@ public class AccountManagerScreen extends WindowScreen {
 		}
 
 		double pixelSize = ((height - 6) / 10d) * 0.625;
-		textRenderer.drawWithShadow(matrices, "\u00a77Name: " + acc.username,
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer, "\u00a77Name: " + acc.username,
 				extendText ? (int) (x + height + pixelSize * 10 + 3) : x + height, y + 4, -1);
-		textRenderer.drawWithShadow(matrices,
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
 				(acc.type == AccountType.NO_AUTH ? "\u00a7eNo Auth" : acc.type == AccountType.MOJANG ? "\u00a7aMojang" : "\u00a7bMicrosoft"),
 				extendText ? (int) (x + height + pixelSize * 10 + 3) : x + height, y + height - 11, -1);
 
 		if (acc.type != AccountType.NO_AUTH) {
-			textRenderer.drawWithShadow(matrices,
+			context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
 					(acc.success == 0 ? "\u00a76?" : acc.success == 1 ? "\u00a7cx" : "\u00a7a+"),
 					x + width - 10, y + height - 11, -1);
 		}

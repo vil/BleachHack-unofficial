@@ -12,13 +12,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
@@ -144,20 +145,24 @@ public class BleachTitleScreen extends WindowScreen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		this.renderBackground(context);
 
 		int copyWidth = this.textRenderer.getWidth("Copyright Mojang AB. Do not distribute!") + 2;
-		textRenderer.drawWithShadow(matrices, "Copyright Mojang AB. Do not distribute!", width - copyWidth, height - 10, -1);
-		textRenderer.drawWithShadow(matrices, "Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Copyright Mojang AB. Do not distribute!", width - copyWidth, height - 10, -1);
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
 				4, height - 30, -1);
-		textRenderer.drawWithShadow(matrices, "Minecraft: " + SharedConstants.getGameVersion().getName(), 4, height - 20, -1);
-		textRenderer.drawWithShadow(matrices, "Logged in as: \u00a7a" + client.getSession().getUsername(), 4, height - 10, -1);
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Minecraft: " + SharedConstants.getGameVersion().getName(), 4, height - 20, -1);
+		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
+				"Logged in as: \u00a7a" + client.getSession().getUsername(), 4, height - 10, -1);
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(context, mouseX, mouseY, delta);
 
 		particleMang.addParticle(mouseX, mouseY);
-		particleMang.renderParticles(matrices);
+		particleMang.renderParticles(context);
 
 	}
 

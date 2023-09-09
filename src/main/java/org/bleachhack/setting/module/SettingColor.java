@@ -8,13 +8,13 @@
  */
 package org.bleachhack.setting.module;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.clickgui.window.ModuleWindow;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.setting.SettingDataHandlers;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
@@ -28,7 +28,7 @@ public class SettingColor extends ModuleSetting<float[]> {
 		super(text, rgbToHsv(r, g, b), float[]::clone, SettingDataHandlers.FLOAT_ARRAY);
 	}
 
-	public void render(ModuleWindow window, MatrixStack matrices, int x, int y, int len) {
+	public void render(ModuleWindow window, DrawContext context, int x, int y, int len) {
 		int sx = x + 3;
 		int sy = y + 2;
 		int ex = x + len - 18;
@@ -37,9 +37,9 @@ public class SettingColor extends ModuleSetting<float[]> {
 		float[] hsv = getValue();
 		int[] rgb = hsvToRgb(hsv[0], 1f, 1f);
 
-		Window.fill(matrices, sx - 1, sy - 1, ex + 1, ey + 1, 0xff8070b0, 0xff6060b0, 0x00000000);
+		Window.fill(context, sx - 1, sy - 1, ex + 1, ey + 1, 0xff8070b0, 0xff6060b0, 0x00000000);
 
-		DrawableHelper.fill(matrices, sx, sy, ex, ey, -1);
+		context.fill(sx, sy, ex, ey, -1);
 
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
@@ -73,24 +73,24 @@ public class SettingColor extends ModuleSetting<float[]> {
 		int cursorX = (int) (sx + (ex - sx) * hsv[1]);
 		int cursorY = (int) (ey - (ey - sy) * hsv[2]);
 
-		DrawableHelper.fill(matrices, cursorX - 2, cursorY, cursorX, cursorY + 1, 0xffd0d0d0);
-		DrawableHelper.fill(matrices, cursorX + 1, cursorY, cursorX + 3, cursorY + 1, 0xffd0d0d0);
-		DrawableHelper.fill(matrices, cursorX, cursorY - 2, cursorX + 1, cursorY, 0xffd0d0d0);
-		DrawableHelper.fill(matrices, cursorX, cursorY + 1, cursorX + 1, cursorY + 3, 0xffd0d0d0);
+		context.fill(cursorX - 2, cursorY, cursorX, cursorY + 1, 0xffd0d0d0);
+		context.fill(cursorX + 1, cursorY, cursorX + 3, cursorY + 1, 0xffd0d0d0);
+		context.fill(cursorX, cursorY - 2, cursorX + 1, cursorY, 0xffd0d0d0);
+		context.fill(cursorX, cursorY + 1, cursorX + 1, cursorY + 3, 0xffd0d0d0);
 
-		matrices.push();
-		matrices.scale(0.75f, 0.75f, 1f);
-		MinecraftClient.getInstance().textRenderer.draw(matrices, getName(), (int) ((sx + 1) / 0.75), (int) ((sy + 1) / 0.75), 0x000000);
-		matrices.pop();
+		context.getMatrices().push();
+		context.getMatrices().scale(0.75f, 0.75f, 1f);
+		context.drawText(MinecraftClient.getInstance().textRenderer, getName(), (int) ((sx + 1) / 0.75), (int) ((sy + 1) / 0.75), 0x000000, false);
+		context.getMatrices().pop();
 
 		// Hue bar
 		sx = ex + 5;
 		ex = ex + 12;
-		Window.fill(matrices, sx - 1, sy - 1, ex + 1, ey + 1, 0xff8070b0, 0xff6060b0, 0x00000000);
+		Window.fill(context, sx - 1, sy - 1, ex + 1, ey + 1, 0xff8070b0, 0xff6060b0, 0x00000000);
 
 		for (int i = sy; i < ey; i++) {
 			float curHue = (float) (i - sy) / (ey - sy);
-			DrawableHelper.fill(matrices, sx, i, ex, i + 1, 0xff000000 | pack(hsvToRgb(curHue, 1f, 1f)));
+			context.fill(sx, i, ex, i + 1, 0xff000000 | pack(hsvToRgb(curHue, 1f, 1f)));
 		}
 
 		// Hue bar input handler
@@ -101,10 +101,10 @@ public class SettingColor extends ModuleSetting<float[]> {
 
 		// Hue bar cursor
 		cursorY = (int) (sy + (ey - sy) * hsv[0]);
-		DrawableHelper.fill(matrices, sx, cursorY - 1, sx + 1, cursorY + 2, 0xffd0d0d0);
-		DrawableHelper.fill(matrices, ex - 1, cursorY - 1, ex, cursorY + 2, 0xffd0d0d0);
-		DrawableHelper.fill(matrices, sx, cursorY, sx + 2, cursorY + 1, 0xffd0d0d0);
-		DrawableHelper.fill(matrices, ex - 2, cursorY, ex, cursorY + 1, 0xffd0d0d0);
+		context.fill(sx, cursorY - 1, sx + 1, cursorY + 2, 0xffd0d0d0);
+		context.fill(ex - 1, cursorY - 1, ex, cursorY + 2, 0xffd0d0d0);
+		context.fill(sx, cursorY, sx + 2, cursorY + 1, 0xffd0d0d0);
+		context.fill(ex - 2, cursorY, ex, cursorY + 1, 0xffd0d0d0);
 	}
 
 	public SettingColor withDesc(String desc) {

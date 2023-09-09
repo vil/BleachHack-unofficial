@@ -8,23 +8,24 @@
  */
 package org.bleachhack.event.events;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.event.Event;
 
 import net.minecraft.client.util.math.MatrixStack;
 
 public class EventRenderCrosshair extends Event {
 
-	private MatrixStack matrices;
+	private DrawContext context;
 
-	public EventRenderCrosshair(MatrixStack matrices) {
-		this.setMatrices(matrices);
+	public EventRenderCrosshair(DrawContext context) {
+		this.setContext(context);
 	}
 
-	public MatrixStack getMatrices() {
-		return matrices;
+	public DrawContext getContext() {
+		return context;
 	}
 
-	public void setMatrices(MatrixStack matrices) {
-		this.matrices = matrices;
+	public void setContext(DrawContext context) {
+		this.context = context;
 	}
 }

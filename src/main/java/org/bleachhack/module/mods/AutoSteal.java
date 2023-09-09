@@ -115,7 +115,7 @@ public class AutoSteal extends Module {
 						boolean openSlot = InventoryUtils.getSlot(false, j -> mc.player.getInventory().getStack(j).isEmpty()
 								|| (mc.player.getInventory().getStack(j).isStackable()
 										&& mc.player.getInventory().getStack(j).getCount() < mc.player.getInventory().getStack(j).getMaxCount()
-										&& currentItems.get(fi).isItemEqual(mc.player.getInventory().getStack(j)))) != 1;
+										&& currentItems.get(fi).equals(mc.player.getInventory().getStack(j)))) != 1;
 
 						if (openSlot) {
 							mc.interactionManager.clickSlot(currentSyncId, i, 0, SlotActionType.QUICK_MOVE, mc.player);

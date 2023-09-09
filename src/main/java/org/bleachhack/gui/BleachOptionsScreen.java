@@ -8,6 +8,7 @@
  */
 package org.bleachhack.gui;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.gui.window.WindowScreen;
 import org.bleachhack.gui.window.widget.WindowButtonWidget;
@@ -95,8 +96,8 @@ public class BleachOptionsScreen extends WindowScreen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		this.renderBackground(context);
 
 		int offset = scrollbar.getOffsetSinceRender();
 		for (WindowWidget widget: getWindow(0).getWidgets()) {
@@ -106,7 +107,7 @@ public class BleachOptionsScreen extends WindowScreen {
 			}
 		}
 
-		super.render(matrices, mouseX, mouseY, delta);
+		super.render(context, mouseX, mouseY, delta);
 	}
 
 	@Override

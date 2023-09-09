@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
+import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.gui.window.widget.WindowWidget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -127,11 +128,11 @@ public abstract class WindowScreen extends Screen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		super.render(matrices, mouseX, mouseY, delta);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		super.render(context, mouseX, mouseY, delta);
 		
 		for (WindowWidget w : globalWidgets) {
-			w.render(matrices, 0, 0, mouseX, mouseY);
+			w.render(context, 0, 0, mouseX, mouseY);
 		}
 
 		int sel = getSelectedWindow();
@@ -150,16 +151,16 @@ public abstract class WindowScreen extends Screen {
 		for (int w: getWindowsBackToFront()) {
 			if (!getWindow(w).closed) {
 				close = false;
-				onRenderWindow(matrices, w, mouseX, mouseY);
+				onRenderWindow(context, w, mouseX, mouseY);
 			}
 		}
 
 		if (autoClose && close) this.close();
 	}
 
-	public void onRenderWindow(MatrixStack matrices, int window, int mouseX, int mouseY) {
+	public void onRenderWindow(DrawContext context, int window, int mouseX, int mouseY) {
 		if (!windows.get(window).closed) {
-			windows.get(window).render(matrices, mouseX, mouseY);
+			windows.get(window).render(context, mouseX, mouseY);
 		}
 	}
 
@@ -249,7 +250,7 @@ public abstract class WindowScreen extends Screen {
 	}
 
 	@Override
-	public void renderBackgroundTexture(MatrixStack matrices) {
+	public void renderBackgroundTexture(DrawContext context) {
 		int colorOffset = (int) ((System.currentTimeMillis() / 75) % 100);
 		if (colorOffset > 50)
 			colorOffset = 50 - (colorOffset - 50);
