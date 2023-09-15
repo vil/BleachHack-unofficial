@@ -121,7 +121,7 @@ public class Window {
 		context.fill(x1 + 1, y1 + 12, x2 - 1, y2 - 1, 0x90606090);
 
 		/* title bar */
-		horizontalGradient(context,x1 + 1, y1 + 1, x2 - 1, y1 + 12, (selected ? 0xff6060b0 : 0xff606060), (selected ? 0xff8070b0 : 0xffa0a0a0));
+		horizontalGradient(context, x1 + 1, y1 + 1, x2 - 1, y1 + 12, (selected ? 0xff6060b0 : 0xff606060), (selected ? 0xff8070b0 : 0xffa0a0a0));
 
 		/* buttons */
 		context.drawText(MinecraftClient.getInstance().textRenderer, "x", x2 - 10, y1 + 3, 0, false);

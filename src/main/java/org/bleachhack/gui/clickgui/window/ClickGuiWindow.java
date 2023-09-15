@@ -43,7 +43,7 @@ public abstract class ClickGuiWindow extends Window {
 	protected void drawBackground(DrawContext context, int mouseX, int mouseY, TextRenderer textRend) {
 		/* background */
 		context.fill(x1, y1 + 1, x1 + 1, y2 - 1, 0xff6060b0);
-		horizontalGradient(context, + 1, y1, x2 - 1, y1 + 1, 0xff6060b0, 0xff8070b0);
+		horizontalGradient(context, x1 + 1, y1, x2 - 1, y1 + 1, 0xff6060b0, 0xff8070b0);
 		context.fill(x2 - 1, y1 + 1, x2, y2 - 1, 0xff8070b0);
 		horizontalGradient(context, x1 + 1, y2 - 1, x2 - 1, y2, 0xff6060b0, 0xff8070b0);
 
