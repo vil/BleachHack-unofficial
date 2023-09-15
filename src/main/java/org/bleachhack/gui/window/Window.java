@@ -13,19 +13,13 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.render.*;
 import org.bleachhack.gui.window.widget.WindowWidget;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -94,16 +88,11 @@ public class Window {
 
 		/* window icon */
 		if (icon != null) {
-			RenderSystem.getModelViewStack().push();
-			RenderSystem.getModelViewStack().translate(x1 + (blockItem ? 3 : 2), y1 + 2, 0);
-			RenderSystem.getModelViewStack().scale(0.6f, 0.6f, 1f);
-
-			DiffuseLighting.enableGuiDepthLighting();
-			context.drawItem(icon, x1, y1);
-			DiffuseLighting.disableGuiDepthLighting();
-
-			RenderSystem.getModelViewStack().pop();
-			RenderSystem.applyModelViewMatrix();
+			context.getMatrices().push();
+			context.getMatrices().translate(x1 + (blockItem ? 3 : 2), y1 + 2, 0);
+			context.getMatrices().scale(0.6f, 0.6f, 1);
+			context.drawItem(icon, 0, 0);
+			context.getMatrices().pop();
 		}
 
 		/* window title */
