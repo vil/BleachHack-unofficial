@@ -462,6 +462,7 @@ public class UI extends Module {
 				int offsetX = x + 1 + (i % 9) * 17;
 				int offsetY = y + 1 + (i / 9) * 17;
 				context.drawItem(itemStack, offsetX, offsetY);
+				context.drawItemInSlot(mc.textRenderer, itemStack, offsetX, offsetY);
 			}
 
 			//mc.getItemRenderer().zOffset = 0.0F;
