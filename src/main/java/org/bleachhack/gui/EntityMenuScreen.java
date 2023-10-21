@@ -21,6 +21,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.Direction.Axis;
 import net.minecraft.util.math.MathHelper;
@@ -133,7 +134,7 @@ public class EntityMenuScreen extends Screen {
 		RenderSystem.blendFuncSeparate(
 				GlStateManager.SrcFactor.ONE_MINUS_DST_COLOR, GlStateManager.DstFactor.ONE_MINUS_SRC_COLOR,
 				GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ZERO);
-		context.drawTexture(null,crosshairX - 8, crosshairY - 8, 0, 0, 15, 15);
+		context.drawTexture(OPTIONS_BACKGROUND_TEXTURE, crosshairX - 8, crosshairY - 8, 0, 0, 15, 15); // idk wtf
 
 		drawDots(context, (int) (Math.min(height, width) / 2 * 0.75), mouseX, mouseY);
 
