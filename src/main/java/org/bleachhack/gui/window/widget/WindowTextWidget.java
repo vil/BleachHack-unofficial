@@ -73,7 +73,10 @@ public class WindowTextWidget extends WindowWidget {
 				&& mouseX >= windowX + x1 - offset && mouseX <= windowX + x2 - offset && mouseY >= windowY + y1 && mouseY <= windowY + y2) {
 			context.getMatrices().push();
 			context.getMatrices().translate(0, 0, 250);
-			mc.currentScreen.renderWithTooltip(context, mouseX - (windowX + x1 - (int) offset), mouseY - (windowY + y1), text.getStyle().hashCode());
+			/* Yeah idk, just remove this so title screen doesn't explode when hovering over text.
+			((AccessorScreen) mc.currentScreen).callRenderWithTooltip(
+					context, mouseX - (windowX + x1 - (int) offset), mouseY - (windowY + y1), mc.getTickDelta());
+					*/
 			context.getMatrices().pop();
 		}
 

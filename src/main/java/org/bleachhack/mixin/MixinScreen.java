@@ -25,13 +25,7 @@ import net.minecraft.client.gui.screen.Screen;
 public abstract class MixinScreen {
 
 	@Unique private boolean skipTooltip;
-
 	@Shadow private void renderWithTooltip(DrawContext context, int mouseX, int mouseY, float delta) {}
-
-	@Inject(method = "render", at = @At("HEAD"))
-	private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo callback) {
-
-	}
 
 	@Inject(method = "renderWithTooltip", at = @At("HEAD"), cancellable = true)
 	private void renderWithTooltip(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
@@ -41,7 +35,7 @@ public abstract class MixinScreen {
 
 			if (!event.isCancelled()) {
 				skipTooltip = true;
-				renderWithTooltip(context, event.getMouseX(), event.getMouseY(), event.getDelta());
+				renderWithTooltip(event.getContext(), event.getMouseX(), event.getMouseY(), event.getDelta());
 				skipTooltip = false;
 			}
 

@@ -53,9 +53,9 @@ public abstract class ClickGuiWindow extends Window {
 		horizontalGradient(context, x1 + 1, y1 + 1, x2 - 1, y1 + 12, 0xff6060b0, 0xff8070b0);
 
 		/* +/- text */
-		context.drawText(MinecraftClient.getInstance().textRenderer,
+		context.drawText(textRend,
 				hiding ? "+" : "_", x2 - 10, y1 + (hiding ? 4 : 2), 0x000000, false);
-		context.drawText(MinecraftClient.getInstance().textRenderer,
+		context.drawText(textRend,
 				hiding ? "+" : "_", x2 - 11, y1 + (hiding ? 3 : 1), 0xffffff, false);
 	}
 

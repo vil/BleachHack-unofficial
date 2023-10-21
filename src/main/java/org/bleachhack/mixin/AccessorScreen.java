@@ -28,6 +28,6 @@ public interface AccessorScreen {
 	@Accessor
 	public abstract void setDrawables(List<Drawable> drawables);
 	
-	//@Invoker
-	//public abstract void callRenderTextHoverEffect(DrawContext context, Style style, int x, int y);
+	@Invoker
+	public abstract void callRenderWithTooltip(DrawContext context, int mouseX, int mouseY, float delta);
 }

@@ -8,21 +8,13 @@
  */
 package org.bleachhack.event.events;
 
-import java.util.List;
-
 import net.minecraft.client.gui.DrawContext;
 import org.bleachhack.event.Event;
-
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.tooltip.TooltipComponent;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class EventRenderTooltip extends Event {
-
 	private Screen screen;
 	private DrawContext context;
-	private int x;
-	private int y;
 	private int mouseX;
 	private int mouseY;
 	private float delta;
@@ -34,7 +26,7 @@ public class EventRenderTooltip extends Event {
 		this.mouseY = mouseY;
 		this.delta = delta;
 	}
-	
+
 	public Screen getScreen() {
 		return screen;
 	}
@@ -45,14 +37,6 @@ public class EventRenderTooltip extends Event {
 
 	public void setContext(DrawContext context) {
 		this.context = context;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public void setX(int x) {
-		this.x = x;
 	}
 
 	public int getMouseX() {
