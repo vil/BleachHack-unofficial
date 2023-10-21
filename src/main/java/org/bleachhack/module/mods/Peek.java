@@ -95,7 +95,7 @@ public class Peek extends Module {
 		event.getContext().getMatrices().push();
 		event.getContext().getMatrices().translate(0, 0, 400);
 
-		/**
+
 		if (getSetting(0).asToggle().getState()) {
 			List<TooltipComponent> components = drawShulkerToolTip(event.getContext(), slot, event.getMouseX(), event.getMouseY());
 			if (components != null) {
@@ -105,7 +105,7 @@ public class Peek extends Module {
 					event.getContext();
 				}
 			}
-		}**/
+		}
 
 		if (getSetting(1).asToggle().getState()) drawBookToolTip(event.getContext(), slot, event.getMouseX(), event.getMouseY());
 		if (getSetting(2).asToggle().getState()) drawMapToolTip(event.getContext().getMatrices(), slot, event.getMouseX(), event.getMouseY());
@@ -154,7 +154,7 @@ public class Peek extends Module {
 
 			// mc.getItemRenderer().zOffset = 400;
 			context.drawItem(i, x, y);
-			context.drawItemTooltip(mc.textRenderer, i, x, y);
+			context.drawItemInSlot(mc.textRenderer, i, x, y);
 			// mc.getItemRenderer().zOffset = 300;
 			count++;
 		}
