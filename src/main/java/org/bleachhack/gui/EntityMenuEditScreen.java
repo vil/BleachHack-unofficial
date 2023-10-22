@@ -264,8 +264,8 @@ public class EntityMenuEditScreen extends WindowScreen {
 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		editNameField.mouseClicked(mouseX, mouseY, button);
-		editValueField.mouseClicked(mouseX, mouseY, button);
+		editNameField.setFocused(editNameField.mouseClicked(mouseX, mouseY, button));
+		editValueField.setFocused(editValueField.mouseClicked(mouseX, mouseY, button)); // wtf
 
 		if (hoverEntry != null && interactions.containsKey(hoverEntry)) {
 			selectedEntry = hoverEntry;
