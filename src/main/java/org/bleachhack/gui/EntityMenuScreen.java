@@ -30,6 +30,8 @@ import org.bleachhack.module.mods.EntityMenu;
 import org.bleachhack.util.BleachLogger;
 import org.bleachhack.util.Boxes;
 import org.bleachhack.util.collections.MutablePairList;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 import java.net.URI;
@@ -122,11 +124,16 @@ public class EntityMenuScreen extends Screen {
 
 		int entitySize = (int) (120 / Boxes.getCornerLength(entity.getBoundingBox()));
 		int entityHeight = entitySize / 2 - (int) (10 / Boxes.getAxisLength(entity.getBoundingBox(), Axis.Y));
-		InventoryScreen.drawEntity(context, 0, 0,
-				width / 2, height / 2 + entityHeight,
-				entitySize,
-				(float) (width / 2) - mouseX, (float) (height / 2 + entityHeight - 45) - mouseY, 0,
-				entity);
+
+		InventoryScreen.drawEntity(context,
+			(width - entitySize) / 2, (height - entitySize) / 2,
+			(width + entitySize) / 2 + entitySize, (height + entitySize) / 2 + entitySize,
+			entitySize, 0,
+			(float) (width / 2) - mouseX,
+			(float) (height / 2 + entityHeight - 45) - mouseY,
+			entity
+		);
+
 
 		// Fake crosshair
 		RenderSystem.setShaderTexture(0, 0);

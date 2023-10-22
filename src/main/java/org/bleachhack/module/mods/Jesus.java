@@ -49,6 +49,8 @@ public class Jesus extends Module {
 
 	@BleachSubscribe
 	public void onBlockShape(EventBlockShape event) {
+		if (mc.world == null) return;
+
 		if (getSetting(0).asMode().getMode() == 1
 				&& !mc.world.getFluidState(event.getPos()).isEmpty()
 				&& !mc.player.isSneaking()
