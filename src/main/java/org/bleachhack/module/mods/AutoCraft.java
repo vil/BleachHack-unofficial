@@ -2,6 +2,7 @@ package org.bleachhack.module.mods;
 
 import java.util.List;
 
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.registry.DynamicRegistryManager;
 import org.bleachhack.event.events.EventTick;
 import org.bleachhack.eventbus.BleachSubscribe;
@@ -68,8 +69,8 @@ public class AutoCraft extends Module {
 		boolean drop = getSetting(2).asToggle().getState();
 
 		for (RecipeResultCollection recipeResultCollection : recipeResultCollectionList) {
-			for (Recipe<?> recipe : recipeResultCollection.getRecipes(true)) {
-				if (getSetting(0).asList(Item.class).contains(recipe.getOutput(DynamicRegistryManager.EMPTY).getItem())) {
+			for (RecipeEntry<?> recipe : recipeResultCollection.getRecipes(true)) {
+				if (getSetting(0).asList(Item.class).contains(recipe.value().getResult(DynamicRegistryManager.EMPTY).getItem())) {
 					mc.interactionManager.clickRecipe(currentScreenHandler.syncId, recipe, craftAll);
 					mc.interactionManager.clickSlot(currentScreenHandler.syncId, 0, 0,
 							drop ? SlotActionType.THROW : SlotActionType.QUICK_MOVE, mc.player);

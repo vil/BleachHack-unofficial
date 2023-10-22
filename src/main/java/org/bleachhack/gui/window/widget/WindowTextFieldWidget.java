@@ -41,8 +41,6 @@ public class WindowTextFieldWidget extends WindowWidget {
 	@Override
 	public void tick() {
 		super.tick();
-
-		textField.tick();
 	}
 
 	@Override

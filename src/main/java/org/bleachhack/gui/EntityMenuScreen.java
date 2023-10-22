@@ -122,10 +122,10 @@ public class EntityMenuScreen extends Screen {
 
 		int entitySize = (int) (120 / Boxes.getCornerLength(entity.getBoundingBox()));
 		int entityHeight = entitySize / 2 - (int) (10 / Boxes.getAxisLength(entity.getBoundingBox(), Axis.Y));
-		InventoryScreen.drawEntity(context,
+		InventoryScreen.drawEntity(context, 0, 0,
 				width / 2, height / 2 + entityHeight,
 				entitySize,
-				(float) (width / 2) - mouseX, (float) (height / 2 + entityHeight - 45) - mouseY,
+				(float) (width / 2) - mouseX, (float) (height / 2 + entityHeight - 45) - mouseY, 0,
 				entity);
 
 		// Fake crosshair

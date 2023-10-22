@@ -20,7 +20,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class CmdInvPeek extends Command {
 
@@ -50,7 +49,7 @@ public class CmdInvPeek extends Command {
 							RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 							RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE);
 							context.drawTexture(BACKGROUND_TEXTURE, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
-							drawEntity(context, x + 51, y + 75, 30, (float) (x + 51) - mouseX, (float) (y + 75 - 50) - mouseY, this.client.player);
+							drawEntity(context, x, y, x + 51, y + 75, 30, (float) (x + 51) - mouseX, (float) (y + 75 - 50) - mouseY, 0, this.client.player);
 						}
 					});
 				});

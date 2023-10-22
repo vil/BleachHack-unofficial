@@ -46,12 +46,12 @@ public abstract class MixinScreen {
 	}
 
 	@Inject(method = "renderBackground", at = @At("HEAD"), cancellable = true)
-	private void renderBackground(DrawContext context, CallbackInfo callback) {
+	private void renderBackground(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		EventRenderScreenBackground event = new EventRenderScreenBackground(context);
 		BleachHack.eventBus.post(event);
 
 		if (event.isCancelled()) {
-			callback.cancel();
+			ci.cancel();
 		}
 	}
 }

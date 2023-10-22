@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import net.minecraft.network.packet.s2c.common.DisconnectS2CPacket;
 import org.bleachhack.event.events.EventPacket;
 import org.bleachhack.event.events.EventTick;
 import org.bleachhack.eventbus.BleachSubscribe;
@@ -31,7 +32,6 @@ import net.minecraft.nbt.NbtString;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.network.packet.c2s.play.CreativeInventoryActionC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSignC2SPacket;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.math.BlockPos;
 

@@ -146,7 +146,7 @@ public class CmdServer extends Command {
 		if (singleplayer)
 			return "Integrated Server";
 
-		return mc.player.getServerBrand() != null ? mc.player.getServerBrand() : "Unknown";
+		return mc.player.getServer().getSaveProperties().getServerBrands() != null ? mc.player.getServer().getSaveProperties().getServerBrands().toString() : "Unknown";
 	}
 
 	public String getDay(boolean singleplayer) {

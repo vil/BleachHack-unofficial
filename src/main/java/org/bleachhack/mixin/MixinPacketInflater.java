@@ -3,6 +3,7 @@ package org.bleachhack.mixin;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import net.minecraft.network.handler.PacketInflater;
 import org.bleachhack.module.ModuleManager;
 import org.bleachhack.module.mods.AntiChunkBan;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +17,6 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.DecoderException;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.PacketInflater;
 
 @Mixin(PacketInflater.class)
 public class MixinPacketInflater {

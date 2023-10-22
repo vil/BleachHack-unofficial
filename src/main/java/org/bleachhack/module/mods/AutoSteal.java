@@ -242,7 +242,7 @@ public class AutoSteal extends Module {
 			ScreenHandlerSlotUpdateS2CPacket packet = (ScreenHandlerSlotUpdateS2CPacket) event.getPacket();
 
 			if (packet.getSyncId() == currentSyncId && packet.getSlot() >= 0 && packet.getSlot() < currentItems.size()) {
-				currentItems.set(packet.getSlot(), packet.getItemStack());
+				currentItems.set(packet.getSlot(), packet.getStack());
 			}
 		}
 	}

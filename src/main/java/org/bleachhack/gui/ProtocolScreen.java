@@ -81,7 +81,7 @@ public class ProtocolScreen extends Screen {
 	}
 
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		renderBackground(context);
+		renderBackground(context, mouseX, mouseY, delta);
 		context.drawCenteredTextWithShadow(textRenderer, "NOTE: This will not make the game compatible with other versions", width / 2, 5, 0xaaaaaa);
 		context.drawCenteredTextWithShadow(textRenderer, "It will only change what the client says it is to servers.", width / 2, 15, 0xaaaaaa);
 
@@ -98,11 +98,6 @@ public class ProtocolScreen extends Screen {
 	}
 
 	public void tick() {
-		versionField.tick();
-		protocolField.tick();
-		packVerField.tick();
-		brandField.tick();
-
 		super.tick();
 	}
 

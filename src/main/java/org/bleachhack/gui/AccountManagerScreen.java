@@ -18,21 +18,18 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.session.Session;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.DefaultSkinHelper;
-import net.minecraft.client.util.Session;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.tuple.Pair;
-import org.bleachhack.BleachHack;
 import org.bleachhack.gui.window.Window;
 import org.bleachhack.gui.window.WindowScreen;
 import org.bleachhack.gui.window.widget.*;
-import org.bleachhack.setting.option.Option;
 import org.bleachhack.util.BleachLogger;
 import org.bleachhack.util.auth.LoginCrypter;
 import org.bleachhack.util.auth.LoginHelper;
@@ -44,8 +41,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/* TODO
 public class AccountManagerScreen extends WindowScreen {
-
 	private static final String NO_UUID = "00000000-0000-0000-0000-000000000000";
 	private static final LoginCrypter crypter = new LoginCrypter(LoginCrypter.PASS_PHRASE);
 
@@ -141,7 +138,7 @@ public class AccountManagerScreen extends WindowScreen {
 	}
 
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 
 		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
 				"Fabric: " + FabricLoader.getInstance().getModContainer("fabricloader").get().getMetadata().getVersion().getFriendlyString(),
@@ -290,7 +287,7 @@ public class AccountManagerScreen extends WindowScreen {
 			Account account = new Account(type, 0, null, null, tf.stream().map(t -> t.textField.getText()).toArray(String[]::new));
 			try {
 				Session session = account.getSesson();
-				account.uuid = session.getUuid();
+				account.uuid = session.getUuidOrNull().toString();
 				account.username = session.getUsername();
 				addAccount(account);
 				getWindow(2).closed = true;
@@ -340,18 +337,17 @@ public class AccountManagerScreen extends WindowScreen {
 		if (account.uuid == null) {
 			try {
 				Session session = account.getSesson();
-
-				account.uuid = session.getUuid();
+				account.uuid = session.getUuidOrNull().toString();
 				account.username = session.getUsername();
 
 				account.textures.clear();
-				client.getSkinProvider().loadSkin(session.getProfile(), (type, identifier, minecraftProfileTexture) -> account.textures.put(type, identifier), true);
+				client.getSkinProvider().getSkinTextures(new GameProfile(UUID.fromString(account.uuid), account.username));
 			} catch (AuthenticationException ignored) { }
 		} else {
 			GameProfile profile = new GameProfile(UUID.fromString(account.uuid), account.username);
 
 			account.textures.clear();
-			client.getSkinProvider().loadSkin(profile, (type, identifier, minecraftProfileTexture) -> account.textures.put(type, identifier), true);
+			client.getSkinProvider().getSkinTextures(profile);
 		}
 
 		for (int i = 0; i <= accounts.size(); i++) {
@@ -455,9 +451,9 @@ public class AccountManagerScreen extends WindowScreen {
 				if (id.length() == 32)
 					id = id.substring(0, 8) + "-" + id.substring(8, 12) + "-" + id.substring(12, 16) + "-" + id.substring(16, 20) + "-" + id.substring(20);
 
-				return new Session(input[0], id, "", Optional.empty(), Optional.empty(), Session.AccountType.MOJANG);
+				return new Session(input[0], UUID.fromString(id), "", Optional.empty(), Optional.empty(), Session.AccountType.MOJANG);
 			} catch (Exception e) {
-				return new Session(input[0], NO_UUID, "", Optional.empty(), Optional.empty(), Session.AccountType.MOJANG);
+				return new Session(input[0], UUID.randomUUID(), "", Optional.empty(), Optional.empty(), Session.AccountType.MOJANG);
 			}
 		}, Pair.of("Username", false)),
 		MOJANG(input -> {
@@ -490,3 +486,4 @@ public class AccountManagerScreen extends WindowScreen {
 		Session apply(String[] input) throws AuthenticationException;
 	}
 }
+*/

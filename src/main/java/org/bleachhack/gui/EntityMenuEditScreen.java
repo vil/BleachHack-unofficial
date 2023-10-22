@@ -73,7 +73,7 @@ public class EntityMenuEditScreen extends WindowScreen {
 
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		renderBackground(context);
+		renderBackground(context, mouseX, mouseY, delta);
 		super.render(context, mouseX, mouseY, delta);
 	}
 
@@ -315,8 +315,7 @@ public class EntityMenuEditScreen extends WindowScreen {
 
 	@Override
 	public void tick() {
-		editNameField.tick();
-		editValueField.tick();
+		super.tick();
 	}
 
 	@Override

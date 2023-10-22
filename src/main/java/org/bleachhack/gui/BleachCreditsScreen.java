@@ -131,7 +131,7 @@ public class BleachCreditsScreen extends WindowScreen {
 	}
 
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 		
 		if (!boostersLoaded && boosterList != null) {
 			int scroll = scrollbar.getPageOffset();
@@ -150,9 +150,9 @@ public class BleachCreditsScreen extends WindowScreen {
 		super.render(context, mouseX, mouseY, delta);
 	}
 
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		scrollbar.moveScrollbar((int) -amount * 7);
+	public boolean mouseScrolled(double mouseX, double mouseY, double hAmount, double vAmount) {
+		scrollbar.moveScrollbar((int) -vAmount * 7);
 
-		return super.mouseScrolled(mouseX, mouseY, amount);
+		return super.mouseScrolled(mouseX, mouseY, hAmount, vAmount);
 	}
 }

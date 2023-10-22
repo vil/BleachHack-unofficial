@@ -1,5 +1,5 @@
 # BleachHack-unofficial
-Unofficial port of BleachHack for 1.20.1.
+Unofficial port of BleachHack for 1.20.2.
 
 ## NOTE!
 Some stuff are broken. Don't expect everything to work. 

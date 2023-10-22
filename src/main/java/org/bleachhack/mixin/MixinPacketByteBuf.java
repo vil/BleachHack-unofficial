@@ -12,8 +12,8 @@ import net.minecraft.network.PacketByteBuf;
 @Mixin(PacketByteBuf.class)
 public class MixinPacketByteBuf {
 
-	@ModifyArg(method = "readNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/PacketByteBuf;readNbt(Lnet/minecraft/nbt/NbtTagSizeTracker;)Lnet/minecraft/nbt/NbtCompound;"))
+	@ModifyArg(method = "readNbt", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/PacketByteBuf;readNbt(Lnet/minecraft/nbt/NbtTagSizeTracker;)Lnet/minecraft/nbt/NbtElement;"))
     private NbtTagSizeTracker increaseLimit(NbtTagSizeTracker in) {
-        return ModuleManager.getModule(AntiChunkBan.class).isEnabled() ? NbtTagSizeTracker.EMPTY : in;
+        return ModuleManager.getModule(AntiChunkBan.class).isEnabled() ? NbtTagSizeTracker.ofUnlimitedBytes() : in;
     }
 }

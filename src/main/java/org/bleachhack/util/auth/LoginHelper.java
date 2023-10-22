@@ -21,20 +21,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
+import net.minecraft.client.session.Session;
 import org.bleachhack.util.BleachLogger;
 import org.bleachhack.util.io.BleachOnlineMang;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mojang.authlib.Agent;
 import com.mojang.authlib.exceptions.AuthenticationException;
 import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
-import com.mojang.authlib.yggdrasil.YggdrasilUserAuthentication;
-
-import net.minecraft.client.util.Session;
 
 public final class LoginHelper {
+	/* TODO
 
 	// Microsoft things
 	private static final URI MS_OAUTH_URL = URI.create("https://sisu.xboxlive.com/connect/XboxLive/?state=login&cobrandId=8058f65d-ce06-4c30-9559-473c9275a65d&tid=896928775&ru=https://www.minecraft.net/en-us/login");
@@ -194,4 +193,6 @@ public final class LoginHelper {
 			throw authEx;
 		}
 	}
+
+	 */
 }

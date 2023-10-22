@@ -52,7 +52,7 @@ public class AutoReconnect extends Module {
 	public void sendPacket(EventPacket.Send event) {
 		if (event.getPacket() instanceof HandshakeC2SPacket) {
 			HandshakeC2SPacket packet = (HandshakeC2SPacket) event.getPacket();
-			server = new ServerInfo("Server", packet.getAddress() + ":" + packet.getPort(), false);
+			server = new ServerInfo("Server", packet.address() + ":" + packet.port(), ServerInfo.ServerType.OTHER);
 		}
 	}
 

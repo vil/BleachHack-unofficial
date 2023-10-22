@@ -54,7 +54,7 @@ public abstract class ClickGuiScreen extends WindowScreen {
 	}
 
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 
 		for (Window w : getWindows()) {
 			if (w instanceof ClickGuiWindow) {
@@ -155,9 +155,9 @@ public abstract class ClickGuiScreen extends WindowScreen {
 		return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 
-	public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-		mwScroll = (int) amount;
-		return super.mouseScrolled(mouseX, mouseY, amount);
+	public boolean mouseScrolled(double mouseX, double mouseY, double hAmount, double vAmount) {
+		mwScroll = (int) vAmount;
+		return super.mouseScrolled(mouseX, mouseY, hAmount, vAmount);
 	}
 	
 	private void tryOpen(Screen screen) {

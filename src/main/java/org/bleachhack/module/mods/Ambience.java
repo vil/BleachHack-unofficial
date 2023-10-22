@@ -8,6 +8,7 @@
  */
 package org.bleachhack.module.mods;
 
+import net.minecraft.network.packet.s2c.common.DisconnectS2CPacket;
 import org.bleachhack.event.events.EventBiomeColor;
 import org.bleachhack.event.events.EventPacket;
 import org.bleachhack.event.events.EventSkyRender;
@@ -21,7 +22,6 @@ import org.bleachhack.setting.module.SettingSlider;
 import org.bleachhack.setting.module.SettingToggle;
 
 import net.minecraft.client.render.DimensionEffects;
-import net.minecraft.network.packet.s2c.play.DisconnectS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 import net.minecraft.util.math.Vec3d;

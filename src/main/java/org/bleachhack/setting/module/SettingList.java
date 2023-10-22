@@ -143,7 +143,7 @@ public abstract class SettingList<T> extends ModuleSetting<LinkedHashSet<T>> {
 		}
 
 		public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-			renderBackground(context);
+			renderBackground(context, mouseX, mouseY, delta);
 			super.render(context, mouseX, mouseY, delta);
 		}
 
@@ -264,12 +264,12 @@ public abstract class SettingList<T> extends ModuleSetting<LinkedHashSet<T>> {
 			return super.mouseClicked(mouseX, mouseY, button);
 		}
 
-		public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+		public boolean mouseScrolled(double mouseX, double mouseY, double hAmount, double vAmount) {
 			if (!inputField.textField.isFocused() || inputField.textField.getText().isEmpty()) {
-				scrollbar.scroll(amount);
+				scrollbar.scroll(vAmount);
 			}
 
-			return super.mouseScrolled(mouseX, mouseY, amount);
+			return super.mouseScrolled(mouseX, mouseY, hAmount, vAmount);
 		}
 	}
 }

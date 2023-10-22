@@ -146,7 +146,7 @@ public class BleachTitleScreen extends WindowScreen {
 
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 
 		int copyWidth = this.textRenderer.getWidth("Copyright Mojang AB. Do not distribute!") + 2;
 		context.drawTextWithShadow(MinecraftClient.getInstance().textRenderer,
