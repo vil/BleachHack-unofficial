@@ -141,20 +141,20 @@ public class HoleESP extends Module {
 				CardinalDirection gradientDir = sideMode == 0 ? CardinalDirection.NORTH : CardinalDirection.SOUTH;
 
 				holes.forEach((pos, color) ->
-						Renderer.drawBoxFill(new Box(pos, pos.add(1, 0, 1)).stretch(0, height, 0),
+						Renderer.drawBoxFill(new Box(pos.toCenterPos(), pos.add(1, 0, 1).toCenterPos()).stretch(0, height, 0),
 								QuadColor.gradient(
 										color[0], color[1], color[2], alpha,
 										color[0], color[1], color[2], 0, gradientDir), excludeDirs));
 			} else {
 				if (sideMode == 2 || sideMode == 4) {
 					holes.forEach((pos, color) ->
-							Renderer.drawBoxFill(new Box(pos, pos.add(1, 0, 1)).stretch(0, height, 0),
+							Renderer.drawBoxFill(new Box(pos.toCenterPos(), pos.add(1, 0, 1).toCenterPos()).stretch(0, height, 0),
 									QuadColor.single(color[0], color[1], color[2], alpha), excludeDirs));
 				}
 
 				if (sideMode == 2 || sideMode == 3) {
 					holes.forEach((pos, color) ->
-							Renderer.drawBoxOutline(new Box(pos, pos.add(1, 0, 1)).stretch(0, height, 0),
+							Renderer.drawBoxOutline(new Box(pos.toCenterPos(), pos.add(1, 0, 1).toCenterPos()).stretch(0, height, 0),
 									QuadColor.single(color[0], color[1], color[2], 255), getSetting(2).asToggle().getChild(1).asSlider().getValueFloat(), excludeDirs));
 				}
 			}

@@ -86,7 +86,7 @@ public class EntityMenuScreen extends Screen {
 			String message = ModuleManager.getModule(EntityMenu.class)
 					.interactions.getValue(focusedString)
 					.replaceAll("%name%", entity.getDisplayName().getString())
-					.replaceAll("%uuid%", entity.getEntityName())
+					.replaceAll("%uuid%", entity.getName().toString())
 					.replaceAll("%health%", String.valueOf((int) entity.getHealth()))
 					.replaceAll("%x%", coordFormat.format(entity.getX()))
 					.replaceAll("%y%", coordFormat.format(entity.getY()))

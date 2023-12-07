@@ -10,6 +10,7 @@ package org.bleachhack.command.commands;
 
 import java.util.Locale;
 
+import net.minecraft.text.Text;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -45,7 +46,7 @@ public class CmdGamemode extends Command {
 			mc.interactionManager.setGameMode(GameMode.SPECTATOR);
 			BleachLogger.info("\u00a7l\u00a7nClientside\u00a7r gamemode has been set to spectator.");
 		} else {
-			throw new CmdSyntaxException("Unknown Gamemode!");
+			throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.literal("Unknown Gamemode!"));
 		}
 	}
 

@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
@@ -53,15 +54,17 @@ public class CmdClip extends Command {
 			}
 
 			if (!NumberUtils.isCreatable(args[0])) {
-				throw new CmdSyntaxException("Invalid x distance \"" + args[0] + "\"");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.literal("Invalid x distance \"" + args[0] + "\""));
 			}
 
 			if (!NumberUtils.isCreatable(args[1])) {
-				throw new CmdSyntaxException("Invalid y distance \"" + args[1] + "\"");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(),
+						Text.literal("Invalid y distance \"" + args[1] + "\""));
 			}
 
 			if (!NumberUtils.isCreatable(args[2])) {
-				throw new CmdSyntaxException("Invalid z distance \"" + args[2] + "\"");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(),
+						Text.literal("Invalid z distance \"" + args[2] + "\""));
 			}
 
 			move(NumberUtils.createNumber(args[0]).doubleValue(),

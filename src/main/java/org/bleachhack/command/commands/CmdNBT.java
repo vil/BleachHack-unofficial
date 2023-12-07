@@ -97,7 +97,7 @@ public class CmdNBT extends Command {
 		}
 	}
 
-	private NbtCompound getNbt(String arg) {
+	private NbtCompound getNbt(String arg) throws CmdSyntaxException {
 		if (arg.equalsIgnoreCase("hand")) {
 			return mc.player.getMainHandStack().getOrCreateNbt();
 		} else if (arg.equalsIgnoreCase("block")) {

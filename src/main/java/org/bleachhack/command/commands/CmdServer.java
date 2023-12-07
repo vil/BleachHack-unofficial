@@ -84,7 +84,7 @@ public class CmdServer extends Command {
 		} else if (args[0].equalsIgnoreCase("version")) {
 			BleachLogger.noPrefix(createText("Version", getVersion(sp)));
 		} else {
-			throw new CmdSyntaxException("Invalid server bruh.");
+			throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.of("Invalid server bruh."));
 		}
 	}
 

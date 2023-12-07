@@ -114,7 +114,10 @@ public class DamageUtils {
 			return 0f;
 		}
 
-		if (!target.isImmuneToExplosion() && !target.isInvulnerable()) {
+		Explosion explosion = new Explosion(mc.world, target, explosionPos.x, explosionPos.y,
+				explosionPos.z, power, false, Explosion.DestructionType.DESTROY);
+
+		if (!target.isImmuneToExplosion(explosion) && !target.isInvulnerable()) {
 			double distExposure = Math.sqrt(target.squaredDistanceTo(explosionPos)) / maxDist;
 			if (distExposure <= 1.0) {
 				double xDiff = target.getX() - explosionPos.x;

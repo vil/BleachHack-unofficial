@@ -75,11 +75,13 @@ public class CmdWatermark extends Command {
 
 			if (args[0].equalsIgnoreCase("text")) {
 				if (args.length > 3) {
-					throw new CmdSyntaxException("The watermark can't contain more than 2 words.");
+					throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException(),
+							Text.literal("The watermark can't contain more than 2 words."));
 				}
 
 				if ((args.length == 2 && args[1].length() < 2) || (args.length == 3 && (args[1].isEmpty() || args[2].isEmpty()))) {
-					throw new CmdSyntaxException("The watermark can't be less than 2 characters long.");
+					throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException(),
+							Text.literal("The watermark can't be less than 2 characters long."));
 				}
 
 				BleachHack.watermark.setStrings(args[1], args.length == 3 ? args[2] : "");
@@ -88,7 +90,7 @@ public class CmdWatermark extends Command {
 				BleachLogger.info(Text.literal("Set the watermark to ").append(BleachHack.watermark.getText()));
 			} else if (args[0].equalsIgnoreCase("color")) {
 				if (args.length > 3) {
-					throw new CmdSyntaxException("The watermark can't contain more than 2 colors.");
+					throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException(), Text.literal("The watermark can't contain more than 2 colors."));
 				}
 
 				BleachHack.watermark.setColor(

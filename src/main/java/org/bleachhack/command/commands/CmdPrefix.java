@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import net.minecraft.text.Text;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -24,7 +25,7 @@ public class CmdPrefix extends Command {
 	@Override
 	public void onCommand(String alias, String[] args) throws Exception {
 		if (args[0].isEmpty()) {
-			throw new CmdSyntaxException("Prefix Cannot Be Empty");
+			throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherExpectedArgumentSeparator(), Text.literal("Prefix Cannot Be Empty"));
 		}
 
 		Option.CHAT_COMMAND_PREFIX.setValue(args[0]);

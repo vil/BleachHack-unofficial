@@ -1,26 +1,23 @@
 package org.bleachhack.command.exception;
 
-import net.minecraft.command.CommandException;
+import com.mojang.brigadier.exceptions.CommandExceptionType;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.text.Text;
 
 import java.io.Serial;
 
-public class CmdSyntaxException extends CommandException {
+public class CmdSyntaxException extends CommandSyntaxException {
 
 	@Serial
 	private static final long serialVersionUID = 7940377774005961331L;
 
 	public CmdSyntaxException() {
-        this("Invalid Syntax!");
+        this(BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.literal("Invalid Syntax!"));
     }
 
-    public CmdSyntaxException(String message) {
-        this(Text.literal(message));
-    }
-    
-    public CmdSyntaxException(Text message) {
-        super(message);
+    public CmdSyntaxException(CommandExceptionType type, Text message) {
+        super(type, message);
     }
 
 }

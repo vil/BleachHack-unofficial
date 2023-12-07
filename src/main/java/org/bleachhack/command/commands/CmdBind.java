@@ -9,6 +9,7 @@
 package org.bleachhack.command.commands;
 
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -54,16 +55,19 @@ public class CmdBind extends Command {
 								try {
 									key = InputUtil.fromTranslationKey("key.keyboard." + args[2].toLowerCase(Locale.ENGLISH).replaceFirst("right", "right.")).getCode();
 								} catch (IllegalArgumentException e1) {
-									throw new CmdSyntaxException("Unknown key: " + args[2] + " / " + args[2].toLowerCase(Locale.ENGLISH).replaceFirst("right", "right."));
+									throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(),
+											Text.literal("Unknown key: " + args[2] + " / " + args[2].toLowerCase(Locale.ENGLISH).replaceFirst("right", "right.")));
 								}
 							} else if (args[2].toLowerCase(Locale.ENGLISH).startsWith("r")) {
 								try {
 									key = InputUtil.fromTranslationKey("key.keyboard." + args[2].toLowerCase(Locale.ENGLISH).replaceFirst("r", "right.")).getCode();
 								} catch (IllegalArgumentException e1) {
-									throw new CmdSyntaxException("Unknown key: " + args[2] + " / " + args[2].toLowerCase(Locale.ENGLISH).replaceFirst("r", "right."));
+									throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(),
+											Text.literal("Unknown key: " + args[2] + " / " + args[2].toLowerCase(Locale.ENGLISH).replaceFirst("r", "right.")));
 								}
 							} else {
-								throw new CmdSyntaxException("Unknown key: " + args[2]);
+								throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(),
+										Text.literal("Unknown key: " + args[2]));
 							}
 						}
 
@@ -78,7 +82,7 @@ public class CmdBind extends Command {
 				}
 			}
 
-			throw new CmdSyntaxException("Could Not Find Module \"" + args[1] + "\"");
+			throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.literal("Could Not Find Module \"" + args[1] + "\""));
 		} else {
 			throw new CmdSyntaxException();
 		}

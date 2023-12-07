@@ -47,7 +47,7 @@ public class ItemContentUtils {
 				if (item.getItem() == Items.WRITABLE_BOOK) {
 					pages.add(nbt2.getString(i));
 				} else {
-					Text text = Text.Serializer.fromLenientJson(nbt2.getString(i));
+					Text text = Text.Serialization.fromLenientJson(nbt2.getString(i));
 
 					pages.add(text != null ? text.getString() : nbt2.getString(i));
 				}

@@ -39,14 +39,14 @@ public class CmdFriends extends Command {
 
 		if (args[0].equalsIgnoreCase("add")) {
 			if (args.length < 2) {
-				throw new CmdSyntaxException("No username selected");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherExpectedArgumentSeparator(), Text.literal("No username selected"));
 			}
 
 			BleachHack.friendMang.add(args[1]);
 			BleachLogger.info("Added \"" + args[1] + "\" to the friend list");
 		} else if (args[0].equalsIgnoreCase("remove")) {
 			if (args.length < 2) {
-				throw new CmdSyntaxException("No username selected");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherExpectedArgumentSeparator(), Text.literal("No username selected"));
 			}
 
 			BleachHack.friendMang.remove(args[1].toLowerCase(Locale.ENGLISH));

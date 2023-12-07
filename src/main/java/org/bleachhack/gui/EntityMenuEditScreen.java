@@ -314,11 +314,6 @@ public class EntityMenuEditScreen extends WindowScreen {
 	}
 
 	@Override
-	public void tick() {
-		super.tick();
-	}
-
-	@Override
 	public boolean charTyped(char chr, int modifiers) {
 		if (editNameField.isFocused()) editNameField.charTyped(chr, modifiers);
 		if (editValueField.isFocused()) editValueField.charTyped(chr, modifiers);

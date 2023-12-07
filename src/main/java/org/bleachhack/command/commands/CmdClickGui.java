@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
@@ -56,14 +57,14 @@ public class CmdClickGui extends Command {
 					}
 				}
 			} else {
-				throw new CmdSyntaxException("Invalid reset mode!");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.literal("Invalid reset mode!"));
 			}
 
 			BleachFileHelper.SCHEDULE_SAVE_CLICKGUI.set(true);
 			BleachLogger.info("Reset the clickgui!");
 		} else if (args[0].equalsIgnoreCase("length")) {
 			if (!NumberUtils.isCreatable(args[1])) {
-				throw new CmdSyntaxException("Invalid clickgui length: " + args[1]);
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument(), Text.literal("Invalid clickgui length: " + args[1]));
 			}
 
 			ModuleManager.getModule(ClickGui.class).getSetting(0).asSlider().setValue(NumberUtils.createNumber(args[1]).doubleValue());

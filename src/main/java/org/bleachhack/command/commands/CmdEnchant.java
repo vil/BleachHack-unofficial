@@ -127,9 +127,9 @@ public class CmdEnchant extends Command {
 		}
 	}
 
-	public void enchant(ItemStack item, Enchantment e, int level) {
+	public void enchant(ItemStack item, Enchantment e, int level) throws CmdSyntaxException {
 		if (e == null) {
-			throw new CmdSyntaxException("Invalid enchantment!");
+			throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand(), Text.literal("Invalid enchantment!"));
 		}
 
 		if (item.getNbt() == null)

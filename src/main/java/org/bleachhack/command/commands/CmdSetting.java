@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import net.minecraft.text.Text;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -33,7 +34,7 @@ public class CmdSetting extends Command {
 		ModuleSetting<?> setting = module.getSettings().stream().filter(s -> s.getName().equals(args[1])).findFirst().get();
 		
 		if (setting == null)
-			throw new CmdSyntaxException("Invalid setting \"" + args[1] + "\"");
+			throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException(), Text.literal("Invalid setting \"" + args[1] + "\""));
 
 		Object value = setting.getValue();
 		if (value instanceof Double) {

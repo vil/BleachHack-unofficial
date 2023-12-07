@@ -9,6 +9,7 @@
 package org.bleachhack.module.mods;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.multiplayer.ConnectScreen;
 import org.bleachhack.event.events.EventOpenScreen;
 import org.bleachhack.event.events.EventPacket;
 import org.bleachhack.eventbus.BleachSubscribe;
@@ -17,7 +18,6 @@ import org.bleachhack.module.ModuleCategory;
 import org.bleachhack.setting.module.SettingSlider;
 import org.bleachhack.setting.module.SettingToggle;
 
-import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;

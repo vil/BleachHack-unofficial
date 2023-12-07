@@ -8,6 +8,7 @@
  */
 package org.bleachhack.command.commands;
 
+import net.minecraft.text.Text;
 import org.bleachhack.command.Command;
 import org.bleachhack.command.CommandCategory;
 import org.bleachhack.command.exception.CmdSyntaxException;
@@ -39,7 +40,8 @@ public class CmdTerrain extends Command {
 					poses[i] = temp;
 				}
 			} catch (Exception e) {
-				throw new CmdSyntaxException("Could not parse number at pos " + i + " (\"" + args[i] + "\")");
+				throw new CmdSyntaxException(CmdSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException(),
+						Text.literal("Could not parse number at pos " + i + " (\"" + args[i] + "\")"));
 			}
 		}
 
