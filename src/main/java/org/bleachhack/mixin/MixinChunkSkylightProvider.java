@@ -21,11 +21,11 @@ import net.minecraft.world.chunk.light.ChunkSkyLightProvider;
 @Mixin(ChunkSkyLightProvider.class)
 public class MixinChunkSkylightProvider {
 
-	// idk
-	@Inject(method = "method_51531", at = @At("HEAD"), cancellable = true)
-	private void method_51531(long blockPos, long l, int lightLevel, CallbackInfo ci) {
-		if (ModuleManager.getModule(NoRender.class).isWorldToggled(4)) {
-			ci.cancel();
-		}
-	}
+    // idk
+    @Inject(method = "propagateLight", at = @At("HEAD"), cancellable = true)
+    private void propagateLight(ChunkPos chunkPos, CallbackInfo ci) {
+        if (ModuleManager.getModule(NoRender.class).isWorldToggled(4)) {
+            ci.cancel();
+        }
+    }
 }
